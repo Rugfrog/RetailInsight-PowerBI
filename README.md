@@ -1,23 +1,34 @@
-# Retail Insight — Customer Feedback Dashboard
+# RetailInsight — Customer Feedback Dashboard
 
-An interactive portfolio demonstration of retail customer-feedback reporting with **fictional, synthetic data**.
+Portfolio prototype using entirely fictional retail customer feedback data. There are **two different artifacts** in this repository.
 
-## Browser preview
+## 1. Interactive browser demonstration
 
-The web demo lives in [docs/index.html](docs/index.html) and includes filters, sentiment KPIs (including the smile/neutral/sad faces), response trends, UK store locations, searchable feedback, store ranking, and CSV export.
+**[View the web demo](https://rugfrog.github.io/RetailInsight-PowerBI/)**
 
-### Public GitHub Pages preview
+Hosted with GitHub Pages from [docs/index.html](docs/index.html). Includes functional filters, sentiment faces, trends, customer feedback tables and downloadable CSV. The browser demo is written in HTML/JavaScript — it is **not** a published Power BI report.
 
-After enabling GitHub Pages with **Deploy from a branch → main → /docs**, visit:
+## 2. Editable Power BI project (PBIP)
 
-https://rugfrog.github.io/RetailInsight-PowerBI/
+The actual Power BI source files are committed in the repository:
 
-> **Note:** This is an interactive browser recreation, **not** a Power BI Service report. All sample records are fictional. The Power BI Desktop PBIP project is a separate editable deliverable that still needs validation in Power BI Desktop.
+- [RetailInsight.pbip](RetailInsight.pbip) — Power BI Desktop project entry point
+- [RetailInsight.Report](RetailInsight.Report) — report visuals, layouts and definitions
+- [RetailInsight.SemanticModel](RetailInsight.SemanticModel) — TMDL data model, queries and DAX measures
 
-## Portfolio use
+The source files have not been opened or runtime-validated in Power BI Desktop or the Power BI/Fabric service. They are an **untested first build**, not a verified deployed report.
 
-Label this as a **sample / prototype dashboard**. It is not a screenshot of a deployed Power BI report, and no actual ASDA, Medallia or customer data has been used.
+### How to view the *real* Power BI report in a browser
 
-## Licensing
+GitHub Pages cannot directly render PBIP/PBIX files. Two options:
 
-Copyright © project owner. All rights reserved unless otherwise agreed.
+1. **Fabric Git integration** — in an eligible Microsoft Fabric workspace, connect this GitHub repository, sync the report and semantic model, refresh the model and open the report in the Fabric/Power BI browser UI. Your Fabric administrator must allow Git integration, and a supported workspace/capacity is required.
+2. **Power BI Desktop / Service** — clone/download the project, open `RetailInsight.pbip` in Power BI Desktop, verify the report, then publish it to Power BI Service. From there you can use **Publish to web** for public embedding if your tenant allows it, since all data here is fictional.
+
+For workspace Git sync, use the two item folders (`RetailInsight.Report`, `RetailInsight.SemanticModel`). There is no requirement for GitHub Pages to be enabled to sync report definitions.
+
+## Portfolio representation
+
+Describe this as a **fictional retail analytics demonstration**. Don't claim the HTML page is a deployed Power BI report, or that this repository contains confidential data from ASDA, Medallia, or other companies.
+
+Copyright © repository owner. All rights reserved.
