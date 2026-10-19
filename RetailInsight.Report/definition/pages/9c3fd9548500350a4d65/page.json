@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "9c3fd9548500350a4d65",
+  "displayName": "Customer Feedback",
+  "displayOption": "FitToPage",
+  "height": 810,
+  "width": 1440
+}

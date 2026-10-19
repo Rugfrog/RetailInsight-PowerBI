@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "e7ad5a1d80fe5d84c41f",
+  "position": {
+    "x": 250,
+    "y": 304,
+    "z": 27,
+    "height": 224,
+    "width": 700,
+    "tabOrder": 26
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
+                  "Property": "ResponseDate"
+                }
+              },
+              "queryRef": "Feedback.ResponseDate",
+              "nativeQueryRef": "ResponseDate"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
+                  "Property": "Positive Responses"
+                }
+              },
+              "queryRef": "Feedback.Positive Responses",
+              "nativeQueryRef": "Positive Responses"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
+                  "Property": "Neutral Responses"
+                }
+              },
+              "queryRef": "Feedback.Neutral Responses",
+              "nativeQueryRef": "Neutral Responses"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
+                  "Property": "Negative Responses"
+                }
+              },
+              "queryRef": "Feedback.Negative Responses",
+              "nativeQueryRef": "Negative Responses"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Daily customer feedback'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

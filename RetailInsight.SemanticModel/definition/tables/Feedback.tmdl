@@ -1,0 +1,231 @@
+table Feedback
+	lineageTag: 43721b4c-aef0-49a9-bd10-e6b5289e52a8
+
+	column ResponseID
+		dataType: int64
+		lineageTag: c4bd30e2-e355-4cdb-be09-8e13cdaf42a7
+		summarizeBy: none
+		sourceColumn: ResponseID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponseDate
+		dataType: dateTime
+		lineageTag: bccf55c1-3fd7-44a0-aab7-7409f82173f7
+		summarizeBy: none
+		sourceColumn: ResponseDate
+		formatString: dd MMM yyyy
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		lineageTag: f339ea9b-8a0d-4465-83b0-7b3ccd8ee601
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		dataType: int64
+		lineageTag: 9c1412d7-a62a-472b-a35c-be7d9dd75087
+		summarizeBy: none
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: fb88c9cd-da3d-4e06-badb-09dee476de26
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 2818da04-e73e-44fd-baad-ec9b24304c2f
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Store
+		dataType: string
+		lineageTag: b74e69cd-977e-4c7d-bdd1-e6c28020844b
+		summarizeBy: none
+		sourceColumn: Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: b68e5458-36a1-449e-b45b-0aedf5232e1a
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: a23793ac-d076-44f8-9e0e-10d77140a64f
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: c54f083f-8c2c-4244-9b17-385328f4a843
+		summarizeBy: none
+		sourceColumn: Latitude
+		dataCategory: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column Longitude
+		dataType: double
+		lineageTag: 8b3be3f9-825a-4b56-b298-3c5e69d8c8dc
+		summarizeBy: none
+		sourceColumn: Longitude
+		dataCategory: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: e0301c81-ddbe-4cbe-8c60-174dcea99be5
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sentiment
+		dataType: string
+		lineageTag: 8778abdd-b9e8-490a-a9ff-ae1a0e93b3a4
+		summarizeBy: none
+		sourceColumn: Sentiment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rating
+		dataType: int64
+		lineageTag: ce69a914-c8d9-43cf-81d3-a8ec749ae47f
+		summarizeBy: none
+		sourceColumn: Rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column Feedback
+		dataType: string
+		lineageTag: bc154158-2513-48bc-9a75-f8e734ace9e2
+		summarizeBy: none
+		sourceColumn: Feedback
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Total Responses' = COUNTROWS(Feedback)
+		formatString: #,0
+		lineageTag: 0022458a-718b-41be-b54f-f4d0b2e17ecf
+
+	measure 'Positive Responses' = CALCULATE([Total Responses], Feedback[Sentiment] = "Positive")
+		formatString: #,0
+		lineageTag: 81707bbb-fd79-48f1-9c54-8af8be85a994
+
+	measure 'Neutral Responses' = CALCULATE([Total Responses], Feedback[Sentiment] = "Neutral")
+		formatString: #,0
+		lineageTag: d4c1fcb0-ec91-4f23-a91e-b7a2072b0820
+
+	measure 'Negative Responses' = CALCULATE([Total Responses], Feedback[Sentiment] = "Negative")
+		formatString: #,0
+		lineageTag: c6fd6fbc-2f27-403c-a9c4-a65dec9cc90b
+
+	measure 'Positive %' = DIVIDE([Positive Responses],[Total Responses])
+		formatString: 0.0%
+		lineageTag: 231f4fe6-0322-4511-bf65-cb51f4342b94
+
+	measure 'Neutral %' = DIVIDE([Neutral Responses],[Total Responses])
+		formatString: 0.0%
+		lineageTag: df1bde5d-e17e-4264-b084-0f0204795f31
+
+	measure 'Negative %' = DIVIDE([Negative Responses],[Total Responses])
+		formatString: 0.0%
+		lineageTag: 52b8d1e2-bbae-462c-8fc9-e99d162ec0c0
+
+	measure 'Average Rating' = AVERAGE(Feedback[Rating])
+		formatString: 0.0
+		lineageTag: bcb0e1c7-5435-4a46-8ee2-360825f304ea
+
+	measure 'Response Count' = COUNTROWS(Feedback)
+		formatString: #,0
+		lineageTag: 89b79cfa-853b-41d4-8434-5a50d5bb31d3
+
+	partition Feedback = m
+		mode: import
+		source =
+			let
+			    Stores = {
+			        [City="Leeds", Region="Yorkshire", Latitude=53.8008, Longitude=-1.5491],
+			        [City="Manchester", Region="North West", Latitude=53.4808, Longitude=-2.2426],
+			        [City="Birmingham", Region="Midlands", Latitude=52.4862, Longitude=-1.8904],
+			        [City="Bristol", Region="South West", Latitude=51.4545, Longitude=-2.5879],
+			        [City="Newcastle", Region="North East", Latitude=54.9783, Longitude=-1.6178],
+			        [City="Cardiff", Region="Wales", Latitude=51.4816, Longitude=-3.1791],
+			        [City="Edinburgh", Region="Scotland", Latitude=55.9533, Longitude=-3.1883],
+			        [City="Glasgow", Region="Scotland", Latitude=55.8642, Longitude=-4.2518],
+			        [City="Liverpool", Region="North West", Latitude=53.4084, Longitude=-2.9916],
+			        [City="Nottingham", Region="Midlands", Latitude=52.9548, Longitude=-1.1581],
+			        [City="Sheffield", Region="Yorkshire", Latitude=53.3811, Longitude=-1.4701],
+			        [City="Norwich", Region="East", Latitude=52.6309, Longitude=1.2974],
+			        [City="Southampton", Region="South East", Latitude=50.9097, Longitude=-1.4044],
+			        [City="Brighton", Region="South East", Latitude=50.8225, Longitude=-0.1372],
+			        [City="Oxford", Region="South East", Latitude=51.7520, Longitude=-1.2577],
+			        [City="London", Region="London", Latitude=51.5072, Longitude=-0.1276],
+			        [City="Cambridge", Region="East", Latitude=52.1951, Longitude=0.1313],
+			        [City="Belfast", Region="Northern Ireland", Latitude=54.5973, Longitude=-5.9301],
+			        [City="Plymouth", Region="South West", Latitude=50.3755, Longitude=-4.1427],
+			        [City="York", Region="Yorkshire", Latitude=53.9600, Longitude=-1.0873]
+			    },
+			    PositiveComments = {
+			        "Helpful colleagues and a pleasant shopping experience.",
+			        "Good selection and everything was easy to find.",
+			        "Staff were friendly and the store was well organised.",
+			        "Quick checkout and helpful customer service.",
+			        "Clean aisles and good availability of everyday items.",
+			        "Really pleased with the service at this location."
+			    },
+			    NeutralComments = {
+			        "Overall fine, though the queue was a little slow.",
+			        "Reasonable visit, but some products were hard to find.",
+			        "Average experience with nothing particularly outstanding.",
+			        "The store was busy, but staff were doing their best."
+			    },
+			    NegativeComments = {
+			        "Several shelves were empty during the visit.",
+			        "Waited too long at the checkout.",
+			        "Could not find the product I came in for.",
+			        "The customer service desk was difficult to locate."
+			    },
+			    Records = List.Transform({1..7250}, (i) =>
+			        let
+			            si = Number.Mod(i * 17 + Number.IntegerDivide(i, 31), List.Count(Stores)),
+			            s = Stores{si},
+			            scoreIndex = Number.Mod(i * 37 + Number.IntegerDivide(i, 11), 100),
+			            sentiment = if scoreIndex < 71 then "Positive" else if scoreIndex < 87 then "Neutral" else "Negative",
+			            comments = if sentiment = "Positive" then PositiveComments else if sentiment = "Neutral" then NeutralComments else NegativeComments,
+			            rating = if sentiment = "Positive" then (if Number.Mod(i, 4) = 0 then 4 else 5) else if sentiment = "Neutral" then 3 else (if Number.Mod(i, 2) = 0 then 1 else 2),
+			            dayNum = Number.Mod(i * 19 + Number.IntegerDivide(i, 7), 273),
+			            dt = Date.AddDays(#date(2024,1,1),dayNum),
+			            storeNum = 1000 + si * 17,
+			            comment = comments{Number.Mod(i*3, List.Count(comments))}
+			        in
+			            [ResponseID = i, ResponseDate = dt, Year=Date.Year(dt), Week=Date.WeekOfYear(dt, Day.Monday), Month=Date.ToText(dt,"MMM yyyy","en-GB"), City=s[City], Store=s[City] & " - " & Text.From(storeNum), Region=s[Region], Country="United Kingdom", Latitude=s[Latitude], Longitude=s[Longitude], Channel=if Number.Mod(i,5)=0 then "Online" else "In Store", Sentiment=sentiment, Rating=rating, Feedback=comment]
+			    ),
+			    Source=Table.FromRecords(Records),
+			    Typed=Table.TransformColumnTypes(Source, {{"ResponseID",Int64.Type},{"ResponseDate",type date},{"Year",Int64.Type},{"Week",Int64.Type},{"Month",type text},{"City",type text},{"Store",type text},{"Region",type text},{"Country",type text},{"Latitude",type number},{"Longitude",type number},{"Channel",type text},{"Sentiment",type text},{"Rating",Int64.Type},{"Feedback",type text}})
+			in
+			    Typed
+
+	annotation PBI_NavigationStepName = Navigation
+	annotation PBI_ResultType = Table
