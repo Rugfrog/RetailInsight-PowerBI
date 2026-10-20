@@ -18,6 +18,8 @@ The actual Power BI source files are committed in the repository:
 
 The source files have not been opened or runtime-validated in Power BI Desktop or the Power BI/Fabric service. They are an **untested first build**, not a verified deployed report.
 
+See [the Power BI audit](POWERBI_AUDIT.md) for source repairs, static validation results, fixture totals, unresolved runtime checks and the deployment route. The repair branch adds Calendar/Store relationships, corrects sentiment-filter measures, and adds week/county slicers; these still require verification in Power BI.
+
 ### How to view the *real* Power BI report in a browser
 
 GitHub Pages cannot directly render PBIP/PBIX files. Two options:

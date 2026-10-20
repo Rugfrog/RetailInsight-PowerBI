@@ -67,6 +67,11 @@ table Feedback
 
 		annotation SummarizationSetBy = Automatic
 
+	column County
+		dataType: string
+		summarizeBy: none
+		sourceColumn: County
+
 	column Country
 		dataType: string
 		lineageTag: a23793ac-d076-44f8-9e0e-10d77140a64f
@@ -125,19 +130,19 @@ table Feedback
 
 		annotation SummarizationSetBy = Automatic
 
-	measure 'Total Responses' = COUNTROWS(Feedback)
+	measure 'Total Responses' = COALESCE(COUNTROWS(Feedback), 0)
 		formatString: #,0
 		lineageTag: 0022458a-718b-41be-b54f-f4d0b2e17ecf
 
-	measure 'Positive Responses' = CALCULATE([Total Responses], Feedback[Sentiment] = "Positive")
+	measure 'Positive Responses' = COALESCE(CALCULATE([Total Responses], KEEPFILTERS(Feedback[Sentiment] = "Positive")), 0)
 		formatString: #,0
 		lineageTag: 81707bbb-fd79-48f1-9c54-8af8be85a994
 
-	measure 'Neutral Responses' = CALCULATE([Total Responses], Feedback[Sentiment] = "Neutral")
+	measure 'Neutral Responses' = COALESCE(CALCULATE([Total Responses], KEEPFILTERS(Feedback[Sentiment] = "Neutral")), 0)
 		formatString: #,0
 		lineageTag: d4c1fcb0-ec91-4f23-a91e-b7a2072b0820
 
-	measure 'Negative Responses' = CALCULATE([Total Responses], Feedback[Sentiment] = "Negative")
+	measure 'Negative Responses' = COALESCE(CALCULATE([Total Responses], KEEPFILTERS(Feedback[Sentiment] = "Negative")), 0)
 		formatString: #,0
 		lineageTag: c6fd6fbc-2f27-403c-a9c4-a65dec9cc90b
 
@@ -157,7 +162,7 @@ table Feedback
 		formatString: 0.0
 		lineageTag: bcb0e1c7-5435-4a46-8ee2-360825f304ea
 
-	measure 'Response Count' = COUNTROWS(Feedback)
+	measure 'Response Count' = COALESCE(COUNTROWS(Feedback), 0)
 		formatString: #,0
 		lineageTag: 89b79cfa-853b-41d4-8434-5a50d5bb31d3
 
@@ -166,26 +171,26 @@ table Feedback
 		source =
 			let
 			    Stores = {
-			        [City="Leeds", Region="Yorkshire", Latitude=53.8008, Longitude=-1.5491],
-			        [City="Manchester", Region="North West", Latitude=53.4808, Longitude=-2.2426],
-			        [City="Birmingham", Region="Midlands", Latitude=52.4862, Longitude=-1.8904],
-			        [City="Bristol", Region="South West", Latitude=51.4545, Longitude=-2.5879],
-			        [City="Newcastle", Region="North East", Latitude=54.9783, Longitude=-1.6178],
-			        [City="Cardiff", Region="Wales", Latitude=51.4816, Longitude=-3.1791],
-			        [City="Edinburgh", Region="Scotland", Latitude=55.9533, Longitude=-3.1883],
-			        [City="Glasgow", Region="Scotland", Latitude=55.8642, Longitude=-4.2518],
-			        [City="Liverpool", Region="North West", Latitude=53.4084, Longitude=-2.9916],
-			        [City="Nottingham", Region="Midlands", Latitude=52.9548, Longitude=-1.1581],
-			        [City="Sheffield", Region="Yorkshire", Latitude=53.3811, Longitude=-1.4701],
-			        [City="Norwich", Region="East", Latitude=52.6309, Longitude=1.2974],
-			        [City="Southampton", Region="South East", Latitude=50.9097, Longitude=-1.4044],
-			        [City="Brighton", Region="South East", Latitude=50.8225, Longitude=-0.1372],
-			        [City="Oxford", Region="South East", Latitude=51.7520, Longitude=-1.2577],
-			        [City="London", Region="London", Latitude=51.5072, Longitude=-0.1276],
-			        [City="Cambridge", Region="East", Latitude=52.1951, Longitude=0.1313],
-			        [City="Belfast", Region="Northern Ireland", Latitude=54.5973, Longitude=-5.9301],
-			        [City="Plymouth", Region="South West", Latitude=50.3755, Longitude=-4.1427],
-			        [City="York", Region="Yorkshire", Latitude=53.9600, Longitude=-1.0873]
+			        [City="Leeds", County="West Yorkshire", Region="Yorkshire", Latitude=53.8008, Longitude=-1.5491],
+			        [City="Manchester", County="Greater Manchester", Region="North West", Latitude=53.4808, Longitude=-2.2426],
+			        [City="Birmingham", County="West Midlands", Region="Midlands", Latitude=52.4862, Longitude=-1.8904],
+			        [City="Bristol", County="Bristol", Region="South West", Latitude=51.4545, Longitude=-2.5879],
+			        [City="Newcastle", County="Tyne and Wear", Region="North East", Latitude=54.9783, Longitude=-1.6178],
+			        [City="Cardiff", County="Cardiff", Region="Wales", Latitude=51.4816, Longitude=-3.1791],
+			        [City="Edinburgh", County="City of Edinburgh", Region="Scotland", Latitude=55.9533, Longitude=-3.1883],
+			        [City="Glasgow", County="Glasgow City", Region="Scotland", Latitude=55.8642, Longitude=-4.2518],
+			        [City="Liverpool", County="Merseyside", Region="North West", Latitude=53.4084, Longitude=-2.9916],
+			        [City="Nottingham", County="Nottinghamshire", Region="Midlands", Latitude=52.9548, Longitude=-1.1581],
+			        [City="Sheffield", County="South Yorkshire", Region="Yorkshire", Latitude=53.3811, Longitude=-1.4701],
+			        [City="Norwich", County="Norfolk", Region="East", Latitude=52.6309, Longitude=1.2974],
+			        [City="Southampton", County="Hampshire", Region="South East", Latitude=50.9097, Longitude=-1.4044],
+			        [City="Brighton", County="East Sussex", Region="South East", Latitude=50.8225, Longitude=-0.1372],
+			        [City="Oxford", County="Oxfordshire", Region="South East", Latitude=51.7520, Longitude=-1.2577],
+			        [City="London", County="Greater London", Region="London", Latitude=51.5072, Longitude=-0.1276],
+			        [City="Cambridge", County="Cambridgeshire", Region="East", Latitude=52.1951, Longitude=0.1313],
+			        [City="Belfast", County="Belfast", Region="Northern Ireland", Latitude=54.5973, Longitude=-5.9301],
+			        [City="Plymouth", County="Devon", Region="South West", Latitude=50.3755, Longitude=-4.1427],
+			        [City="York", County="North Yorkshire", Region="Yorkshire", Latitude=53.9600, Longitude=-1.0873]
 			    },
 			    PositiveComments = {
 			        "Helpful colleagues and a pleasant shopping experience.",
@@ -220,10 +225,10 @@ table Feedback
 			            storeNum = 1000 + si * 17,
 			            comment = comments{Number.Mod(i*3, List.Count(comments))}
 			        in
-			            [ResponseID = i, ResponseDate = dt, Year=Date.Year(dt), Week=Date.WeekOfYear(dt, Day.Monday), Month=Date.ToText(dt,"MMM yyyy","en-GB"), City=s[City], Store=s[City] & " - " & Text.From(storeNum), Region=s[Region], Country="United Kingdom", Latitude=s[Latitude], Longitude=s[Longitude], Channel=if Number.Mod(i,5)=0 then "Online" else "In Store", Sentiment=sentiment, Rating=rating, Feedback=comment]
+			            [ResponseID = i, ResponseDate = dt, Year=Date.Year(dt), Week=Date.WeekOfYear(dt, Day.Monday), Month=Date.ToText(dt,"MMM yyyy","en-GB"), City=s[City], Store=s[City] & " - " & Text.From(storeNum), Region=s[Region], County=s[County], Country="United Kingdom", Latitude=s[Latitude], Longitude=s[Longitude], Channel=if Number.Mod(i,5)=0 then "Online" else "In Store", Sentiment=sentiment, Rating=rating, Feedback=comment]
 			    ),
 			    Source=Table.FromRecords(Records),
-			    Typed=Table.TransformColumnTypes(Source, {{"ResponseID",Int64.Type},{"ResponseDate",type date},{"Year",Int64.Type},{"Week",Int64.Type},{"Month",type text},{"City",type text},{"Store",type text},{"Region",type text},{"Country",type text},{"Latitude",type number},{"Longitude",type number},{"Channel",type text},{"Sentiment",type text},{"Rating",Int64.Type},{"Feedback",type text}})
+			    Typed=Table.TransformColumnTypes(Source, {{"ResponseID",Int64.Type},{"ResponseDate",type date},{"Year",Int64.Type},{"Week",Int64.Type},{"Month",type text},{"City",type text},{"Store",type text},{"Region",type text},{"County",type text},{"Country",type text},{"Latitude",type number},{"Longitude",type number},{"Channel",type text},{"Sentiment",type text},{"Rating",Int64.Type},{"Feedback",type text}})
 			in
 			    Typed
 

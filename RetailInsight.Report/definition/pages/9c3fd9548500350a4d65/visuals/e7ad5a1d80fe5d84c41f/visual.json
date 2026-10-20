@@ -21,14 +21,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Feedback"
+                      "Entity": "Calendar"
                     }
                   },
-                  "Property": "ResponseDate"
+                  "Property": "Date"
                 }
               },
-              "queryRef": "Feedback.ResponseDate",
-              "nativeQueryRef": "ResponseDate"
+              "queryRef": "Calendar.Date",
+              "nativeQueryRef": "Date"
             }
           ]
         },

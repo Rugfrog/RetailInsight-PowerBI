@@ -24,6 +24,20 @@
                       "Entity": "Feedback"
                     }
                   },
+                  "Property": "ResponseID"
+                }
+              },
+              "queryRef": "Feedback.ResponseID",
+              "nativeQueryRef": "ResponseID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
                   "Property": "ResponseDate"
                 }
               },

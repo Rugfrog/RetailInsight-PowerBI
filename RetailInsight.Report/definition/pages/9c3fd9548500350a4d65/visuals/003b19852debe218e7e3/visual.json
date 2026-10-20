@@ -3,9 +3,9 @@
   "name": "003b19852debe218e7e3",
   "position": {
     "x": 17,
-    "y": 264,
+    "y": 324,
     "z": 7,
-    "height": 70,
+    "height": 52,
     "width": 205,
     "tabOrder": 6
   },
@@ -21,13 +21,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Feedback"
+                      "Entity": "Store"
                     }
                   },
                   "Property": "Region"
                 }
               },
-              "queryRef": "Feedback.Region",
+              "queryRef": "Store.Region",
               "nativeQueryRef": "Region"
             }
           ]

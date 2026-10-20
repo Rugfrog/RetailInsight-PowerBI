@@ -3,9 +3,9 @@
   "name": "ff32aca3ca101ddc6cbc",
   "position": {
     "x": 17,
-    "y": 163,
+    "y": 164,
     "z": 5,
-    "height": 70,
+    "height": 52,
     "width": 205,
     "tabOrder": 4
   },
@@ -21,13 +21,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Feedback"
+                      "Entity": "Calendar"
                     }
                   },
                   "Property": "Year"
                 }
               },
-              "queryRef": "Feedback.Year",
+              "queryRef": "Calendar.Year",
               "nativeQueryRef": "Year"
             }
           ]
