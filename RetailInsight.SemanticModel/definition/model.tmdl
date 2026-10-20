@@ -7,3 +7,6 @@ model Model
 		returnErrorValuesAsNull
 
 ref table Feedback
+
+ref table Calendar
+ref table Store

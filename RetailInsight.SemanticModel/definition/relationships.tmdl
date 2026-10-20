@@ -1,0 +1,13 @@
+relationship Feedback_Calendar
+	fromCardinality: many
+	toCardinality: one
+	crossFilteringBehavior: oneDirection
+	fromColumn: Feedback.ResponseDate
+	toColumn: Calendar.Date
+
+relationship Feedback_Store
+	fromCardinality: many
+	toCardinality: one
+	crossFilteringBehavior: oneDirection
+	fromColumn: Feedback.Store
+	toColumn: Store.Store

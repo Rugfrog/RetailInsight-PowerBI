@@ -2,16 +2,130 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "e587dfe1f09b91aa03bd",
   "position": {
-    "x": 974,
-    "y": 304,
-    "z": 28,
-    "height": 224,
-    "width": 432,
-    "tabOrder": 27
+    "x": 1090,
+    "y": 340,
+    "width": 467,
+    "height": 292,
+    "z": 500,
+    "tabOrder": 50
   },
   "visual": {
     "visualType": "map",
     "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'UK store locations'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "query": {
       "queryState": {
         "Location": {
@@ -21,13 +135,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Feedback"
+                      "Entity": "Store"
                     }
                   },
                   "Property": "City"
                 }
               },
-              "queryRef": "Feedback.City",
+              "queryRef": "Store.City",
               "nativeQueryRef": "City"
             }
           ]
@@ -39,13 +153,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Feedback"
+                      "Entity": "Store"
                     }
                   },
                   "Property": "Latitude"
                 }
               },
-              "queryRef": "Feedback.Latitude",
+              "queryRef": "Store.Latitude",
               "nativeQueryRef": "Latitude"
             }
           ]
@@ -57,13 +171,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Feedback"
+                      "Entity": "Store"
                     }
                   },
                   "Property": "Longitude"
                 }
               },
-              "queryRef": "Feedback.Longitude",
+              "queryRef": "Store.Longitude",
               "nativeQueryRef": "Longitude"
             }
           ]
@@ -86,41 +200,79 @@
             }
           ]
         },
-        "Legend": {
+        "Tooltips": {
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Feedback"
                     }
                   },
-                  "Property": "Sentiment"
+                  "Property": "Positive %"
                 }
               },
-              "queryRef": "Feedback.Sentiment",
-              "nativeQueryRef": "Sentiment"
+              "queryRef": "Feedback.Positive %",
+              "nativeQueryRef": "Positive %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
+                  "Property": "Neutral %"
+                }
+              },
+              "queryRef": "Feedback.Neutral %",
+              "nativeQueryRef": "Neutral %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Feedback"
+                    }
+                  },
+                  "Property": "Negative %"
+                }
+              },
+              "queryRef": "Feedback.Negative %",
+              "nativeQueryRef": "Negative %"
             }
           ]
         }
       }
     },
-    "visualContainerObjects": {
-      "title": [
+    "objects": {
+      "dataPoint": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#33996D'"
+                    }
+                  }
                 }
               }
-            },
-            "text": {
+            }
+          }
+        }
+      ],
+      "mapStyles": [
+        {
+          "properties": {
+            "mapTheme": {
               "expr": {
                 "Literal": {
-                  "Value": "'Feedback locations by sentiment'"
+                  "Value": "'grayscale'"
                 }
               }
             }

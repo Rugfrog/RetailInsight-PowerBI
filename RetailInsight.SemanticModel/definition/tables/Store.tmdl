@@ -1,0 +1,48 @@
+table Store
+
+	column Store
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Store
+		isKey
+
+	column City
+		dataType: string
+		summarizeBy: none
+		sourceColumn: City
+
+	column County
+		dataType: string
+		summarizeBy: none
+		sourceColumn: County
+
+	column Region
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Region
+
+	column Country
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Country
+
+	column Latitude
+		dataType: double
+		summarizeBy: none
+		sourceColumn: Latitude
+		dataCategory: Latitude
+
+	column Longitude
+		dataType: double
+		summarizeBy: none
+		sourceColumn: Longitude
+		dataCategory: Longitude
+
+	partition Store = m
+		mode: import
+		source =
+			let
+			    Source = Table.SelectColumns(Feedback, {"Store", "City", "County", "Region", "Country", "Latitude", "Longitude"}),
+			    DistinctStores = Table.Distinct(Source)
+			in
+			    DistinctStores

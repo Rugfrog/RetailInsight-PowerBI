@@ -1,3 +1,5 @@
-**/.pbi/localSettings.json
-**/.pbi/cache.abf
-**/.DS_Store
+.schema-cache/
+**/.pbi/
+**/localSettings.json
+**/cache.abf
+__pycache__/
