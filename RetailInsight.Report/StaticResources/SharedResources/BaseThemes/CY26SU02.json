@@ -1,23 +1,23 @@
 {
   "name": "CY26SU02",
   "dataColors": [
-    "#179D8C",
-    "#E0A627",
-    "#D84C56",
-    "#2C6D9B",
-    "#6B8BBA",
-    "#8493A7"
+    "#33996D",
+    "#D9A329",
+    "#D65760",
+    "#365F7C",
+    "#72AFC7",
+    "#91A3B3"
   ],
-  "foreground": "#172438",
+  "foreground": "#243446",
   "foregroundNeutralSecondary": "#526072",
   "foregroundNeutralTertiary": "#8696A6",
   "background": "#FFFFFF",
   "backgroundLight": "#F4F6F8",
   "backgroundNeutral": "#E5E9EE",
-  "tableAccent": "#2B6D91",
-  "good": "#138D73",
-  "neutral": "#D7A63B",
-  "bad": "#CD4455",
+  "tableAccent": "#365F7C",
+  "good": "#33996D",
+  "neutral": "#D9A329",
+  "bad": "#D65760",
   "textClasses": {
     "title": {
       "fontFace": "Segoe UI Semibold",
@@ -31,8 +31,8 @@
     },
     "callout": {
       "fontFace": "Segoe UI Semibold",
-      "fontSize": 25,
-      "color": "#172438"
+      "fontSize": 26,
+      "color": "#243446"
     }
   }
 }

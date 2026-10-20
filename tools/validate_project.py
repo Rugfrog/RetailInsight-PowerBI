@@ -49,8 +49,27 @@ for path in (ROOT/'RetailInsight.Report/definition').rglob('visual.json'):
             entity = field['Expression']['SourceRef']['Entity']
             assert field['Property'] in tables[entity], (path, entity, field['Property'])
     pos=visual['position']
-    assert pos['x'] >= 0 and pos['y'] >= 0 and pos['x']+pos['width']<=1440 and pos['y']+pos['height']<=810, path
+    page=json.loads((path.parents[2]/'page.json').read_text(encoding='utf-8'))
+    assert pos['x'] >= 0 and pos['y'] >= 0 and pos['x']+pos['width']<=page['width'] and pos['y']+pos['height']<=page['height'], path
 print('PASS: all visual field references resolve; all objects fit the report canvas.')
+
+report=json.loads((ROOT/'RetailInsight.Report/definition/report.json').read_text(encoding='utf-8'))
+resources={(package['name'],item['name']):item['path'] for package in report.get('resourcePackages',[]) for item in package['items']}
+page_names={p.parent.name for p in (ROOT/'RetailInsight.Report/definition/pages').glob('*/page.json')}
+def check_links(node):
+    if isinstance(node,dict):
+        if 'ResourcePackageItem' in node:
+            r=node['ResourcePackageItem']; key=(r['PackageName'],r['ItemName'])
+            assert key in resources,key
+            assert (ROOT/'RetailInsight.Report/StaticResources'/r['PackageName']/resources[key]).is_file(),key
+        if 'navigationSection' in node:
+            assert node['navigationSection']['expr']['Literal']['Value'].strip("'") in page_names
+        for value in node.values(): check_links(value)
+    elif isinstance(node,list):
+        for value in node: check_links(value)
+for path in (ROOT/'RetailInsight.Report/definition').rglob('*.json'):
+    check_links(json.loads(path.read_text(encoding='utf-8')))
+print('PASS: registered images and page-navigation destinations resolve.')
 
 # Independently reproduce the deterministic fixture for later Power BI reconciliation.
 fact = (ROOT/'RetailInsight.SemanticModel/definition/tables/Feedback.tmdl').read_text(encoding='utf-8')

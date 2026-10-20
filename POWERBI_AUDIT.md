@@ -14,14 +14,14 @@ The semantic model originally had one imported table, nine measures, a self-cont
 - Sentiment counts now intersect the selected sentiment using `KEEPFILTERS`, rather than replacing it. With only Negative selected, Positive and Neutral counts should be zero and Negative should represent 100% of selected responses. Empty subsets return zero counts; percentages remain blank when there are no responses.
 - Added Calendar and Store tables and two many-to-one relationships to Feedback, with default single-direction filtering from dimensions to fact. Calendar covers the full calendar year containing the fixture. Month sorts by month number. The imported Feedback query remains the source of the fixture; dimension queries derive from it without a fact-to-dimension query dependency.
 - Bound geographical visuals/slicers to Store and the year/trend fields to Calendar. Original fact columns remain for compatibility.
-- Added week and county/council-area dropdown slicers, bringing the report to 34 native objects. The week convention is **Monday start, calendar year**, using `Date.WeekOfYear`; it is **not ISO week-year**. The location label accommodates Scotland, Wales and Northern Ireland rather than representing all subdivisions as English counties.
+- Added week and county/council-area dropdown slicers. The week convention is **Monday start, calendar year**, using `Date.WeekOfYear`; it is **not ISO week-year**. The location label accommodates Scotland, Wales and Northern Ireland rather than representing all subdivisions as English counties.
 - Added ResponseID to the feedback table so equal displayed values do not collapse separate responses.
 - Corrected the static sample-period label to the actual last fixture date, 29 September 2024. It describes the dataset coverage, not the current filter selection.
 - Preserved sentiment faces and the existing HTML demo.
 
 ## Verification performed
 
-`tools/validate_project.py` validates all 41 project/report JSON documents against the Microsoft schemas named in those files, resolves visual column/measure references against the TMDL source, and checks objects fit the 1440×810 canvas. All passed on 20 October 2026.
+After the reference-led redesign, `tools/validate_project.py` validates all 115 project/report JSON documents against the Microsoft schemas named in those files, resolves visual column/measure references against the TMDL source, checks objects fit their 1600×1104 page canvas, and checks registered image and page-navigation references. All passed on 20 October 2026. See [design implementation notes](DESIGN_REFERENCE.md) for the two pages and renderer checks still required.
 
 An independent Python reproduction of the existing generator yields:
 
@@ -59,15 +59,15 @@ The first run downloads official Microsoft schemas; subsequent runs use `.schema
 2. Test no selection, each sentiment, multiple sentiments, region/county/city combinations, year/week selections, empty weeks, and clearing selections. Check both cards and cross-visual interactions against the same filtered rows.
 3. Verify the map renders in the intended tenant and in Publish to web. Map permissions/provider support are unverified. Check point grouping and colours rather than inferring correctness from coordinates alone.
 4. Verify actual dropdown behavior and tab order in Power BI. Static canvas checks cannot establish readability or keyboard usability. Tune the restrained existing layout after viewing it in the renderer.
-5. Add a supported comment-search experience. The current feedback table is **not yet a searchable table**.
-6. Replace the response-volume bar chart with a clearly defined store-performance ranking (for example positive rate plus response count and minimum sample size). Response volume alone is not service performance.
+5. Verify the new native comment text slicer filters the response table and other visuals correctly, including clearing a search.
+6. Verify store-table positive-rate data bars and the second page's positive-rate ranking. Counts are displayed alongside percentages so response volume is not misrepresented as service quality; consider a minimum sample size before extending the fixture.
 7. Improve the synthetic fixture's realism if useful: its modular formulas produce repetitive comments and do not explicitly model seasonal/store-level sentiment patterns. Preserve determinism and update expected totals deliberately.
 8. Review date semantics before extending to multiple years; adopt ISO year/week together if required. Mark/validate the date table in Desktop before adding time-intelligence measures. The fixture currently has one year only.
 9. Publish only after Desktop checks pass, then repeat representative filter tests in the Service. Capture genuine report screenshots after verification.
 
 ## Access and deployment route
 
-The Microsoft Power BI plugin was observed installed and enabled. It is a **local browser workflow**, not an authenticated deployment API. The available browser reached the Power BI work/school-email sign-in page; no workspace, account, tenant, or licence has been verified. No deployment was attempted and no subscription/trial was started.
+The Microsoft Power BI plugin was observed installed and enabled. It is a **local browser workflow**, not an authenticated deployment API. Service access and a Free licence are now verified in the owner's new business tenant. The owner completed a Microsoft 365 Business Standard trial signup; the separately enrolled Fabric Free licence is active. No Power BI Pro or Fabric capacity trial was started, and no deployment has been verified.
 
 The most direct route is current Power BI Desktop → open and validate this PBIP → publish to the owner's My workspace → verify in Power BI Service → create a Publish to web code if tenant policy allows → verify the anonymous report → embed it at the existing GitHub Pages URL. Keep `docs/index.html` intact until the actual report has passed those checks. Desktop publishing can publish a PBIP through a temporary PBIX; GitHub Pages cannot render project source.
 
