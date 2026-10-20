@@ -41,6 +41,10 @@ An independent Python reproduction of the existing generator yields:
 
 These are **fixture expectations, not query results from Power BI**. JSON schema validation does not execute TMDL, M or DAX and does not validate visual-specific formatting behavior.
 
+Follow-up on 20 October: Microsoft's `Microsoft.AnalysisServices` 19.114.12 TMDL parser successfully deserialized the repaired model into Feedback, Calendar and Store with two relationships. The parser check is reproducible with `tools/validate_tmdl.ps1` and the package's `lib/net8.0` directory. This confirms TMDL parsing, not Power Query/DAX execution or report rendering.
+
+Power BI Service access is now verified in the owner's new business tenant with a **Free account** licence and an empty My workspace. The tenant admin portal is accessible. Existing Publish to web support is enabled, but creation of new embed codes is off; no tenant setting was changed. A warning on that page referred to Block Public Internet Access, while the network setting itself was observed disabled. Recheck actual embed-code availability after report validation rather than assuming a network-policy change is required. No Pro or Fabric capacity trial was started.
+
 Run static checks with Python 3.12+ and `jsonschema` 4.x:
 
 ```powershell
